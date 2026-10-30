@@ -1,0 +1,46 @@
+-- Plugin-owned translations for Spelling Bee (merged via i18n.extend()).
+-- Keys shared with other plugins carry the same French text as theirs: the
+-- translation table is global to every plugin.
+return {
+    ["Spelling Bee"]                      = { fr = "Spelling Bee" },
+    ["Make words from seven letters around a centre letter"] = { fr = "Formez des mots avec sept lettres autour d'une lettre centrale" },
+    ["Delete"]                            = { fr = "Supprimer", es = "Eliminar", de = "Löschen" },
+    ["Shuffle"]                           = { fr = "Mélanger" },
+    ["Enter"]                             = { fr = "Entrée" },
+    ["Reveal answers"]                    = { fr = "Voir les réponses" },
+    ["Word list"]                         = { fr = "Liste des mots" },
+    ["Daily Challenge"]                   = { fr = "Défi du jour", es = "Desafío diario", de = "Tägliche Herausforderung" },
+    -- Rank ladder
+    ["Beginner"]                          = { fr = "Débutant", es = "Principiante", de = "Anfänger" },
+    ["Good Start"]                        = { fr = "Bon début" },
+    ["Moving Up"]                         = { fr = "En progrès" },
+    ["Good"]                              = { fr = "Bien" },
+    ["Solid"]                             = { fr = "Solide" },
+    ["Nice"]                              = { fr = "Joli" },
+    ["Great"]                             = { fr = "Très bien" },
+    ["Amazing"]                           = { fr = "Épatant" },
+    ["Genius"]                            = { fr = "Génie" },
+    ["Queen Bee"]                         = { fr = "Reine des abeilles" },
+    -- Feedback
+    ["Word too short!"]                   = { fr = "Mot trop court !", es = "¡Palabra demasiado corta!", de = "Wort zu kurz!" },
+    ["Not in word list!"]                 = { fr = "Absent de la liste de mots !", es = "¡No está en la lista de palabras!", de = "Nicht in der Wortliste!" },
+    ["Already found: %1"]                 = { fr = "Déjà trouvé : %1", es = "Ya encontrado: %1", de = "Bereits gefunden: %1" },
+    ["Missing the centre letter %1."]     = { fr = "Il manque la lettre centrale %1." },
+    ["%1: bonus word, no points."]        = { fr = "%1 : mot bonus, sans points." },
+    ["Pangram! %1 +%2"]                   = { fr = "Pangramme ! %1 +%2" },
+    ["%1 +%2"]                            = { fr = "%1 +%2" },
+    ["Show every answer? This ends the puzzle."] = { fr = "Montrer toutes les réponses ? La grille sera terminée." },
+    ["A %1-letter word starting with %2 is missing. Tap Hint again to reveal it."] = { fr = "Il manque un mot de %1 lettres qui commence par %2. Touchez Astuce à nouveau pour le révéler." },
+    ["%1, no points."]                    = { fr = "%1, sans points." },
+    -- Status and lists
+    ["Words: %1/%2"]                      = { fr = "Mots : %1/%2", es = "Palabras: %1/%2", de = "Wörter: %1/%2" },
+    ["Score: %1"]                         = { fr = "Score : %1", es = "Puntuación: %1", de = "Punkte: %1" },
+    ["Hints used: %1"]                    = { fr = "Astuces : %1" },
+    ["Found %1 of %2."]                   = { fr = "%1 trouvé(s) sur %2.", es = "%1 de %2 encontradas.", de = "%1 von %2 gefunden." },
+    ["Every word found! %1"]              = { fr = "Tous les mots trouvés ! %1" },
+    ["1 word found"]                      = { fr = "1 mot trouvé" },
+    ["%1 words found"]                    = { fr = "%1 mots trouvés" },
+    ["Bonus: %1"]                         = { fr = "Bonus : %1" },
+    ["Missed (%1):"]                      = { fr = "Manqués (%1) :" },
+    ["Pangrams: %1"]                      = { fr = "Pangrammes : %1" },
+}

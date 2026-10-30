@@ -1,0 +1,28 @@
+local _dir = debug.getinfo(1, "S").source:sub(2):match("(.*[/\\])") or "./"
+package.path = _dir .. "?.lua;" .. _dir .. "common/?.lua;" .. package.path
+
+local function lrequire(name)
+    local key = _dir .. name
+    if not package.loaded[key] then
+        package.loaded[key] = assert(loadfile(_dir .. name .. ".lua"))()
+    end
+    return package.loaded[key]
+end
+
+local PluginBase = require("plugin_base")
+local _          = require("i18n")
+
+require("i18n").extend(lrequire("i18n_fr"))
+local SpellingBeeScreen = lrequire("screen")
+
+local SpellingBee = PluginBase:extend{
+    name      = "spellingbee",
+    menu_text = _("Spelling Bee"),
+    menu_hint = "tools",
+}
+
+function SpellingBee:createScreen()
+    return SpellingBeeScreen:new{ plugin = self }
+end
+
+return SpellingBee
