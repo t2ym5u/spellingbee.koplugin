@@ -1,6 +1,28 @@
 local _dir = debug.getinfo(1, "S").source:sub(2):match("(.*[/\\])") or "./"
 
-local DailySeed = require("daily_seed")
+local DailySeed   = require("daily_seed")
+local SeenHistory = require("seen_history")
+
+-- Letter sets already played, remembered in the plugin settings (game-common
+-- seen_history.lua), one history per language. A set is remembered by its
+-- seven letters whatever the centre: the same hive with another centre
+-- letter is mostly the same words, so it waits until every set was played.
+local SEEN_MAX = 3000
+
+-- The seven letters of a puzzle spec, sorted ("NGIMOTU" -> "GIMNOTU").
+-- Memoised: a draw looks up the set of every puzzle of the language.
+local LETTER_SETS = {}
+local function letterSet(spec)
+    local k = LETTER_SETS[spec]
+    if not k then
+        local t = {}
+        for i = 1, #spec do t[i] = spec:sub(i, i) end
+        table.sort(t)
+        k = table.concat(t)
+        LETTER_SETS[spec] = k
+    end
+    return k
+end
 
 -- ---------------------------------------------------------------------------
 -- Word lists
@@ -77,10 +99,17 @@ Board.LANG_ORDER = LANG_ORDER
 Board.MIN_LEN    = MIN_LEN
 Board.RANK_PCT   = RANK_PCT
 Board.loadLang   = loadLang
+Board.letterSet  = letterSet
 
+-- opts.plugin  : settings holder for the letter-set history (none: plain
+--                random, as in the specs); opts.exclude : set of letter sets
+--                (Board.letterSet) newGame() must not draw -- a party
+--                match's earlier rounds; opts.empty : no puzzle yet.
 function Board:new(opts)
     opts = opts or {}
     local obj = setmetatable({
+        plugin     = opts.plugin,
+        exclude    = opts.exclude,
         lang       = opts.lang or "en",
         centre     = "",     -- the mandatory letter
         outer      = {},     -- the six other letters, in display order
@@ -156,10 +185,26 @@ function Board:getSpec()
     return self.centre .. table.concat(outer)
 end
 
+function Board:_history()
+    return SeenHistory.open(self.plugin, "letters_" .. self.lang,
+                            { max = SEEN_MAX, id_of = letterSet })
+end
+
 function Board:newGame()
     local puzzles = loadLang(self.lang).puzzles
     if #puzzles == 0 then return false end
-    self:setPuzzle(puzzles[math.random(#puzzles)])
+    if self.exclude then
+        local left = {}
+        for _i, spec in ipairs(puzzles) do
+            if not self.exclude[letterSet(spec)] then left[#left + 1] = spec end
+        end
+        if #left > 0 then puzzles = left end
+    end
+    if self.plugin then
+        self:setPuzzle(self:_history():pick(puzzles))
+    else
+        self:setPuzzle(puzzles[math.random(#puzzles)])
+    end
     self:shuffle()
     self.daily = nil
     return true
@@ -180,9 +225,13 @@ function Board:newDailyGame(day)
     day = day or DailySeed.today()
     local idx = self:dailyIndex(day)
     if not idx then return false end
-    self:setPuzzle(loadLang(self.lang).puzzles[idx])
+    local spec = loadLang(self.lang).puzzles[idx]
+    self:setPuzzle(spec)
     self:shuffle()
     self.daily = day
+    -- Picked by the date alone, never through the history; but once played,
+    -- its letters are not served again soon as a random puzzle.
+    if self.plugin then self:_history():mark(spec) end
     return true
 end
 

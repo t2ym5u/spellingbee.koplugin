@@ -53,7 +53,7 @@ end
 local PartyScreen = ScreenBase:extend{}
 
 function PartyScreen:init()
-    self.match = Match.load(self.plugin:loadState(STATE_KEY))
+    self.match = Match.load(self.plugin:loadState(STATE_KEY), self.plugin)
     if not self.match then self:_newMatch() end
     self.page = 1
     ScreenBase.init(self)
@@ -67,6 +67,7 @@ function PartyScreen:_newMatch()
         total      = self.plugin:getSetting("party_rounds", Match.DEFAULT_ROUNDS),
         lang       = self.plugin:getSetting("lang", (sys_lang == "fr") and "fr" or "en"),
         time_limit = self.plugin:getSetting("party_time", Match.DEFAULT_TIME),
+        plugin     = self.plugin,
     }
     self.match:nextRound()
     self.page = 1

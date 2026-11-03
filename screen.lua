@@ -45,7 +45,7 @@ function SpellingBeeScreen:init()
     local state    = self.plugin:loadState()
     local sys_lang = require("i18n").lang()
     local lang     = self.plugin:getSetting("lang", (sys_lang == "fr") and "fr" or "en")
-    self.board = Board:new{ lang = lang, empty = true }
+    self.board = Board:new{ lang = lang, empty = true, plugin = self.plugin }
     if not self.board:load(state) then
         self.board.lang = lang
         self.board:newGame()

@@ -28,6 +28,10 @@ score; Queen Bee means every word found.
   grey and worth no points, so Queen Bee never depends on obscure vocabulary.
 - **No S**, as in the original: S would double every list with plurals.
 - **Daily Challenge** — the same letters for everyone, all day.
+- **No repeats** — the letter sets already played are remembered: the same
+  seven letters (whatever the centre) only come back once every set has been
+  played — 1,316 in English, 719 in French. Solo and multiplayer share this
+  memory.
 - **Hint** — the first tap gives the start and length of a missing word, the
   second reveals it (no points for it).
 - **Reveal answers** — ends the puzzle and greys in the words you missed.
