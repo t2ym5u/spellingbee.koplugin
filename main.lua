@@ -14,14 +14,19 @@ local _          = require("i18n")
 
 require("i18n").extend(lrequire("i18n_fr"))
 local SpellingBeeScreen = lrequire("screen")
+local PartyScreen       = lrequire("party_screen")
 
 local SpellingBee = PluginBase:extend{
     name      = "spellingbee",
     menu_text = _("Spelling Bee"),
     menu_hint = "tools",
+    party_mode = true,
 }
 
 function SpellingBee:createScreen()
+    if self.launch_mode == "party" then
+        return PartyScreen:new{ plugin = self }
+    end
     return SpellingBeeScreen:new{ plugin = self }
 end
 

@@ -33,6 +33,27 @@ score; Queen Bee means every word found.
 - **Reveal answers** — ends the puzzle and greys in the words you missed.
 - **Auto-save** — the current puzzle and your words are restored on next launch.
 
+## Multiplayer
+
+**Spelling Bee · multiplayer** (Tools → Games → Party & quiz, or **Mode** in
+the game's menu): lay the reader in the middle of the table, the hive fills
+the screen above a big countdown, and everyone writes words on paper.
+
+- When time is up (or after **End round**), the answers come up grouped by
+  length, with the points of each length; pangrams are marked +7.
+- Each player in turn taps the words they wrote, then **Next player** (the
+  last one taps **Done**). Words an earlier player claimed show grey.
+- A word written by one player only scores for them (1 point for 4 letters,
+  else one per letter, +7 for a pangram); a word written by two players or
+  more is cancelled, as in Boggle Party. Words not on the list score nothing.
+  Scored words show in bold, cancelled ones struck through; tap a word to see
+  who wrote it, **Details** lists each player's words.
+- Menu: **Players**, **Player names** (remembered), **Rounds** (1–5),
+  **Timer** (off, 3–10 min), **Language**, **Scores**. **Pause** stops the
+  clock. After the last round: the final scoreboard and **New game**. A match
+  in progress is saved separately from the solo game (a round in play comes
+  back paused).
+
 ## Installation
 
 1. Download `spellingbee.koplugin.zip` from the [latest release](../../releases/latest).
