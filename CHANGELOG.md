@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-11-03
+
+### Changed
+- No more repeated hives: the game remembers the letter sets already played
+  and draws a new one each time. The same seven letters no longer come back
+  with another centre letter until every set has been played (1,316 in
+  English, 719 in French). Solo games and multiplayer matches share this
+  memory, and a match never plays the same letters twice. The Daily
+  Challenge is unchanged (the same letters for everyone) and counts as
+  played.
+
 ## [1.1.0] - 2026-11-02
 
 ### Added

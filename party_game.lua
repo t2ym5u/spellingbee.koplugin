@@ -54,21 +54,28 @@ function Match.scoreRound(answers, claims, n)
     return points, count, owner
 end
 
--- opts: names, total, lang, time_limit
+-- The letters of the board's puzzle, whatever the centre.
+local function letterSetOf(b)
+    return Board.letterSet(b:getSpec())
+end
+
+-- opts: names, total, lang, time_limit, plugin (settings holder for the
+-- letter-set history shared with the solo game; none in the specs)
 function Match.new(opts)
     return setmetatable({
+        plugin       = opts.plugin,
         scores       = Party.newScores(opts.names or {}),
         total        = opts.total or Match.DEFAULT_ROUNDS,
         lang         = opts.lang or "en",
         time_limit   = opts.time_limit or 0,
         phase        = "results",   -- before the first round: nextRound() starts it
-        board        = Board:new{ lang = opts.lang or "en", empty = true },
+        board        = Board:new{ lang = opts.lang or "en", empty = true, plugin = opts.plugin },
         claims       = {},
         claimer      = 1,
         time_left    = 0,
         paused       = false,
         round_points = nil,         -- points[seat] of the last round scored
-        used         = {},          -- letter sets played this match
+        used         = {},          -- letter sets (Board.letterSet) played this match
     }, Match)
 end
 
@@ -82,13 +89,13 @@ end
 
 function Match:nextRound()
     if self.phase ~= "results" then return false end
+    -- Never a letter set already played this match (whatever its centre),
+    -- and through the solo game's history: sets seen before wait their turn.
     local b = self.board
     b.lang = self.lang
-    for _try = 1, 20 do
-        if not b:newGame() then return false end
-        if not self.used[b:getSpec()] then break end
-    end
-    self.used[b:getSpec()] = true
+    b.exclude = self.used
+    if not b:newGame() then return false end
+    self.used[letterSetOf(b)] = true
     self.claims = {}
     for seat = 1, self:playerCount() do self.claims[seat] = {} end
     self.claimer      = 1
@@ -197,13 +204,13 @@ end
 local PHASES = { playing = true, claiming = true, results = true, over = true }
 
 -- A restored round in play comes back paused: the table may not be ready.
-function Match.load(t)
+function Match.load(t, plugin)
     if type(t) ~= "table" or not PHASES[t.phase] then return nil end
     local scores = Party.restoreScores(t.scores)
     if not scores then return nil end
     local m = Match.new{
         names = scores.names, total = tonumber(t.total), lang = t.lang,
-        time_limit = tonumber(t.time_limit) or 0,
+        time_limit = tonumber(t.time_limit) or 0, plugin = plugin,
     }
     if not m.board:load(t.puzzle) then return nil end
     m.lang      = m.board.lang
@@ -221,7 +228,10 @@ function Match.load(t)
     if type(t.round_points) == "table" and #t.round_points == m:playerCount() then
         m.round_points = t.round_points
     end
-    for _i, s in ipairs(type(t.used) == "table" and t.used or {}) do m.used[s] = true end
+    -- Older saves stored the spec (centre first): sorted, it is the set.
+    for _i, s in ipairs(type(t.used) == "table" and t.used or {}) do
+        if type(s) == "string" then m.used[Board.letterSet(s)] = true end
+    end
     return m
 end
 

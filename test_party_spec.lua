@@ -97,7 +97,7 @@ describe("Spelling Bee party match", function()
         assert.are.equal("results", s.phase)
         assert.are.same(c.round_points, s.round_points)
         assert.are.same(c.scores.points, s.scores.points)
-        assert.is_true(s.used[c.board:getSpec()])
+        assert.is_true(s.used[Board.letterSet(c.board:getSpec())])
     end)
 
     it("restores a finished match as over", function()
