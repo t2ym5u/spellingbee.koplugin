@@ -24,50 +24,14 @@ local ScreenBase  = require("screen_base")
 local MenuHelper  = require("menu_helper")
 local Board       = lrequire("board")
 local BoardWidget = lrequire("board_widget")
+local Mode        = lrequire("mode")
+local Rules       = lrequire("rules")
 
 local DeviceScreen = Device.screen
 
 -- ---------------------------------------------------------------------------
 -- SpellingBeeScreen
 -- ---------------------------------------------------------------------------
-
-local GAME_RULES_EN = _([[
-Spelling Bee — Rules
-
-Make words from the seven letters of the hive.
-
-• Words have at least 4 letters.
-• Every word must contain the centre letter (the black one).
-• Letters can be used more than once.
-• Every puzzle has at least one pangram: a word using all seven letters.
-
-Tap the letters to type, then Enter. Shuffle mixes the outer letters to help you see new words.
-
-Scoring: a 4-letter word is worth 1 point, a longer word one point per letter, and a pangram 7 points more. Your rank climbs from Beginner to Genius as your score grows; Queen Bee means every word found.
-
-The answers are common words. Rarer words the dictionary knows are accepted as bonus words: they appear in grey, lowercase, and score nothing. Hint first gives the start and length of a missing word, then reveals it (worth no points). Reveal answers ends the puzzle and shows the words you missed.
-
-Daily Challenge gives everyone the same letters for the day.
-]])
-
-local GAME_RULES_FR = [[
-Spelling Bee — Règles
-
-Formez des mots avec les sept lettres de la ruche.
-
-• Les mots ont au moins 4 lettres.
-• Chaque mot doit contenir la lettre centrale (la noire).
-• Une lettre peut servir plusieurs fois.
-• Chaque grille a au moins un pangramme : un mot qui utilise les sept lettres.
-
-Touchez les lettres pour écrire, puis Entrée. Mélanger change la place des lettres extérieures pour aider à voir de nouveaux mots. Les accents sont ignorés : É s'écrit E.
-
-Points : un mot de 4 lettres vaut 1 point, un mot plus long un point par lettre, et un pangramme 7 points de plus. Votre rang monte de Débutant à Génie avec le score ; Reine des abeilles veut dire tous les mots trouvés.
-
-Les réponses sont des mots courants. Les mots plus rares du dictionnaire sont acceptés comme mots bonus : ils s'affichent en gris, en minuscules, et ne rapportent rien. Astuce donne d'abord le début et la longueur d'un mot manquant, puis le révèle (sans points). Voir les réponses termine la grille et montre les mots manqués.
-
-Le Défi du jour donne les mêmes lettres à tout le monde pour la journée.
-]]
 
 -- Rank names, in Board.RANK_PCT order.
 local RANK_NAMES = {
@@ -113,8 +77,9 @@ function SpellingBeeScreen:buildLayout()
             { text = _("Daily Challenge"), callback = function() self:onDailyGame() end },
             { text = T(_("Language: %1"), self.board.lang:upper()),
               callback = function() self:openLangMenu() end },
+            { text = Mode.label(self.plugin), callback = function() Mode.openMenu(self) end },
             { text = _("Word list"),       callback = function() self:showWordList() end },
-            self:makeRulesButtonConfig(GAME_RULES_EN, GAME_RULES_FR),
+            self:makeModeRulesButtonConfig(Rules),
         }
     end)
 
