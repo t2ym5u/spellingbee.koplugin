@@ -262,3 +262,35 @@ describe("persistence", function()
         assert.is_false(Board:new{ empty = true }:load({ centre = "A", outer = { "B" } }))
     end)
 end)
+
+describe("word list memory", function()
+    it("is not loaded when the module is loaded", function()
+        local Fresh = dofile("board.lua")
+        assert.are.same({}, Fresh.loadedLanguages())
+    end)
+
+    it("loads only the language played, and release() drops it", function()
+        local B = dofile("board.lua")
+        B:new{ lang = "fr", empty = true }
+        assert.are.same({}, B.loadedLanguages())
+        local b = B:new{ lang = "fr" }
+        assert.are.same({ "fr" }, B.loadedLanguages())
+        b.lang = "en"
+        b:newGame()
+        assert.are.same({ "en" }, B.loadedLanguages())
+        B.release()
+        assert.are.same({}, B.loadedLanguages())
+    end)
+
+    it("draws the same puzzle after a release", function()
+        local B = dofile("board.lua")
+        math.randomseed(11)
+        local a = B:new{ lang = "en" }
+        B.release()
+        math.randomseed(11)
+        local b = B:new{ lang = "en" }
+        assert.are.equal(a:getSpec(), b:getSpec())
+        assert.are.same(a.answers, b.answers)
+        assert.are.equal(a:dailyIndex(20000), b:dailyIndex(20000))
+    end)
+end)
