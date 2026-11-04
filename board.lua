@@ -35,7 +35,8 @@ end
 --                          count as bonus words, worth no points.
 --   puzzles_<lang>.lua  -- letter sets, centre letter first ("NGIMOTU").
 -- Loaded lazily, once per language: a player who never switches language
--- never pays for the other one.
+-- never pays for the other one. Board.release() (the screen closing) drops
+-- them: they read again in a few milliseconds.
 
 local _lists = {}
 
@@ -56,7 +57,8 @@ local function loadLang(lang)
         extra   = splitWords(words.extra),
         puzzles = (puzzles_fn and puzzles_fn()) or {},
     }
-    _lists[lang] = entry
+    -- only the language in play is kept: switching drops the other one
+    _lists = { [lang] = entry }
     return entry
 end
 
@@ -94,6 +96,22 @@ local RANK_PCT = { 0, 2, 5, 8, 15, 25, 40, 50, 70, 100 }
 
 local Board = {}
 Board.__index = Board
+
+-- Drops the loaded word lists and puzzles, and the letter sets memoised
+-- from them (called when the game screen closes); the next game reads its
+-- language's lists again.
+function Board.release()
+    _lists = {}
+    LETTER_SETS = {}
+end
+
+-- The languages whose word lists are loaded now (for the specs).
+function Board.loadedLanguages()
+    local out = {}
+    for lang in pairs(_lists) do out[#out + 1] = lang end
+    table.sort(out)
+    return out
+end
 
 Board.LANG_ORDER = LANG_ORDER
 Board.MIN_LEN    = MIN_LEN
