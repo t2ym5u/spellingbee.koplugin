@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.3] - 2026-11-06
+
+### Fixed
+- French puzzles no longer accept or reveal "lyncher" and its forms: the
+  three letter sets whose only pangram was LYNCHER are gone (2214 French
+  puzzles left), and lynch and its forms join the family blocklists. The
+  French daily puzzle changes once after updating.
+
 ## [1.2.2] - 2026-11-04
 
 ### Fixed
