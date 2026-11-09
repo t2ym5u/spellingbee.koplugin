@@ -61,11 +61,10 @@ function PartyScreen:init()
 end
 
 function PartyScreen:_newMatch()
-    local sys_lang = require("i18n").lang()
     self.match = Match.new{
         names      = Party.loadPlayers(self.plugin, Party.loadCount(self.plugin)),
         total      = self.plugin:getSetting("party_rounds", Match.DEFAULT_ROUNDS),
-        lang       = self.plugin:getSetting("lang", (sys_lang == "fr") and "fr" or "en"),
+        lang       = self.plugin:getLang({ "fr", "en" }),
         time_limit = self.plugin:getSetting("party_time", Match.DEFAULT_TIME),
         plugin     = self.plugin,
     }
@@ -524,7 +523,7 @@ function PartyScreen:openLangMenu()
         items = { { id = "en", text = _("English") }, { id = "fr", text = "Français" } },
         current_id = self.match.lang, parent = self,
         on_select = function(lang)
-            self.plugin:saveSetting("lang", lang)
+            self.plugin:setLang(lang)
             self:onNewGame()
         end,
     }

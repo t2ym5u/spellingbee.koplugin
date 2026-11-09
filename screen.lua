@@ -43,8 +43,7 @@ local SpellingBeeScreen = ScreenBase:extend{}
 
 function SpellingBeeScreen:init()
     local state    = self.plugin:loadState()
-    local sys_lang = require("i18n").lang()
-    local lang     = self.plugin:getSetting("lang", (sys_lang == "fr") and "fr" or "en")
+    local lang     = self.plugin:getLang({ "fr", "en" })
     self.board = Board:new{ lang = lang, empty = true, plugin = self.plugin }
     if not self.board:load(state) then
         self.board.lang = lang
@@ -231,7 +230,7 @@ function SpellingBeeScreen:describeHintStep(step, level)
 end
 
 function SpellingBeeScreen:onNewGame()
-    self.board.lang = self.plugin:getSetting("lang", self.board.lang)
+    self.board.lang = self.plugin:getLang({ "fr", "en" })
     self.board:newGame()
     self.hint_cell = nil
     self:_save()
@@ -242,7 +241,7 @@ end
 -- Today's letters for the current language. Replaying it after a different
 -- puzzle starts it over: one saved game at a time.
 function SpellingBeeScreen:onDailyGame()
-    self.board.lang = self.plugin:getSetting("lang", self.board.lang)
+    self.board.lang = self.plugin:getLang({ "fr", "en" })
     self.board:newDailyGame()
     self.hint_cell = nil
     self:_save()
@@ -257,7 +256,7 @@ function SpellingBeeScreen:openLangMenu()
         current_id = self.board.lang,
         parent     = self,
         on_select  = function(lang)
-            self.plugin:saveSetting("lang", lang)
+            self.plugin:setLang(lang)
             self:onNewGame()
         end,
     }
