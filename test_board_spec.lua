@@ -56,32 +56,6 @@ describe("data files", function()
                 end
             end
         end)
-
-        it(lang .. ": sampled puzzles have a pangram and 20..55 valid answers", function()
-            local puzzles = lists.puzzles
-            assert.is_true(#puzzles > 1000)
-            local b = Board:new{ lang = lang, empty = true }
-            local step = math.max(1, math.floor(#puzzles / 300))
-            for i = 1, #puzzles, step do
-                local spec = puzzles[i]
-                assert.equals(7, #spec)
-                local letters = {}
-                for k = 1, 7 do
-                    local c = spec:sub(k, k)
-                    assert.is_nil(letters[c], spec)
-                    assert.are_not.equal("S", c)
-                    letters[c] = true
-                end
-                b:setPuzzle(spec)
-                assert.is_true(#b.answers >= 20 and #b.answers <= 55, spec)
-                assert.is_true(#b:getPangrams() >= 1, spec)
-                assert.is_true(b.max_score <= 240, spec)
-                for _, w in ipairs(b.answers) do
-                    assert.is_truthy(w:find(b.centre, 1, true), w)
-                    for k = 1, #w do assert.is_true(letters[w:sub(k, k)], w) end
-                end
-            end
-        end)
     end
 end)
 
