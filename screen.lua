@@ -157,19 +157,19 @@ end
 function SpellingBeeScreen:onLetter(letter)
     if not self.board:typeLetter(letter) then return end
     self.hint_cell = nil
-    self.board_widget:refresh()
+    self.board_widget:refresh(self)
     self:_clearMessage()
 end
 
 function SpellingBeeScreen:onDelete()
     if not self.board:deleteLetter() then return end
-    self.board_widget:refresh()
+    self.board_widget:refresh(self)
     self:_clearMessage()
 end
 
 function SpellingBeeScreen:onShuffle()
     self.board:shuffle()
-    self.board_widget:refresh()
+    self.board_widget:refresh(self)
     self:_save()
 end
 
@@ -198,7 +198,7 @@ function SpellingBeeScreen:onEnter()
     end
     self.hint_cell = nil
     self:_save()
-    self.board_widget:refresh()
+    self.board_widget:refresh(self)
     self:updateStatus(msg)
     self:refreshActionBar()
 end
@@ -212,7 +212,7 @@ function SpellingBeeScreen:onReveal()
             self.board:reveal()
             self.hint_cell = nil
             self:_save()
-            self.board_widget:refresh()
+            self.board_widget:refresh(self)
             self:updateStatus()
             self:refreshActionBar()
         end,

@@ -326,8 +326,10 @@ function SpellingBeeBoardWidget:paintTo(bb, x, y)
     self:_paintList(bb, x, y + self.list_y)
 end
 
-function SpellingBeeBoardWidget:refresh()
-    UIManager:setDirty(self, function()
+-- `parent` is the screen: UIManager only repaints top-level widgets, so
+-- marking the board itself dirty would refresh the old pixels.
+function SpellingBeeBoardWidget:refresh(parent)
+    UIManager:setDirty(parent or self, function()
         return "ui", self.paint_rect or self.dimen
     end)
 end

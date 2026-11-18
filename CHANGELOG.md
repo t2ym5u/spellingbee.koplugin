@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.6] - 2026-11-18
+
+### Fixed
+- Tapping a letter in the hive shows it at once: typing, Delete and Shuffle
+  redraw the board right away instead of waiting for Enter.
+
 ## [1.2.5] - 2026-11-12
 
 ### Changed
