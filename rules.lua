@@ -11,6 +11,7 @@ Make words from the seven letters of the hive.
 • Words have at least 4 letters.
 • Every word must contain the centre letter (the black one).
 • Letters can be used more than once.
+• Where a letter sits in the hive does not matter: any letter can follow any other.
 • Every puzzle has at least one pangram: a word using all seven letters.
 
 Tap the letters to type, then Enter. Shuffle mixes the outer letters to help you see new words.
@@ -30,6 +31,7 @@ Formez des mots avec les sept lettres de la ruche.
 • Les mots ont au moins 4 lettres.
 • Chaque mot doit contenir la lettre centrale (la noire).
 • Une lettre peut servir plusieurs fois.
+• La place des lettres dans la ruche ne compte pas : n'importe quelle lettre peut suivre n'importe quelle autre.
 • Chaque grille a au moins un pangramme : un mot qui utilise les sept lettres.
 
 Touchez les lettres pour écrire, puis Entrée. Mélanger change la place des lettres extérieures pour aider à voir de nouveaux mots. Les accents sont ignorés : É s'écrit E.
@@ -53,7 +55,8 @@ A round
 The reader shows the hive and the countdown. Until time is up, every player secretly writes words made from the seven letters:
 • at least 4 letters,
 • every word contains the centre letter (the black one),
-• letters can be used more than once.
+• letters can be used more than once,
+• where a letter sits in the hive does not matter: any letter can follow any other.
 Shuffle moves the outer letters, Pause stops the clock, End round stops the round early (or ends it when there is no timer).
 Pens down: the list of answers comes up, grouped by length, with the points of each length. Then the reader goes round the table: each player in turn taps the words of the list they wrote, then Next player; the last one taps Done. Words claimed by an earlier player show grey. Previous player goes back to fix a mistake.
 
@@ -76,7 +79,8 @@ Une manche
 La liseuse montre la ruche et le compte à rebours. Jusqu'à la fin du temps, chaque joueur écrit en secret des mots formés avec les sept lettres :
 • au moins 4 lettres,
 • chaque mot contient la lettre centrale (la noire),
-• une lettre peut servir plusieurs fois.
+• une lettre peut servir plusieurs fois,
+• la place des lettres dans la ruche ne compte pas : n'importe quelle lettre peut suivre n'importe quelle autre.
 Mélanger déplace les lettres extérieures, Pause arrête le chrono, Fin de manche termine la manche plus tôt (ou la termine quand il n'y a pas de chrono).
 Stylos levés : la liste des réponses s'affiche, par longueur, avec les points de chaque longueur. La liseuse fait ensuite le tour de la table : chaque joueur à son tour touche les mots de la liste qu'il a écrits, puis Joueur suivant ; le dernier touche Terminé. Les mots déjà pris par un joueur précédent sont grisés. Joueur précédent revient en arrière pour corriger une erreur.
 

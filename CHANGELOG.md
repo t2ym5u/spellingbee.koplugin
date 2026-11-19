@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.8] - 2026-11-19
+
+### Changed
+- The rules say that a letter's place in the hive does not matter: any letter
+  can follow any other (it is not a Boggle-style path).
+
 ## [1.2.7] - 2026-11-18
 
 ### Changed

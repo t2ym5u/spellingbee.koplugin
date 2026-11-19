@@ -11,6 +11,8 @@ seven letters in a honeycomb, as many words as you can find.
 
 Make words of at least 4 letters from the seven letters of the hive. Every
 word must contain the centre letter; letters can be used more than once.
+Where a letter sits in the hive does not matter: any letter can follow any
+other (unlike Boggle, there is no path to trace).
 Every puzzle has at least one pangram, a word that uses all seven letters.
 
 A 4-letter word scores 1 point, a longer word one point per letter, and a
