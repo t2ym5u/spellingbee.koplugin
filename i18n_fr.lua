@@ -2,7 +2,7 @@
 -- Keys shared with other plugins carry the same French text as theirs: the
 -- translation table is global to every plugin.
 return {
-    ["Spelling Bee"]                      = { fr = "Spelling Bee" },
+    ["Spelling Bee"]                      = { fr = "La Ruche" },
     ["Make words from seven letters around a centre letter"] = { fr = "Formez des mots avec sept lettres autour d'une lettre centrale" },
     ["Delete"]                            = { fr = "Supprimer", es = "Eliminar", de = "Löschen" },
     ["Shuffle"]                           = { fr = "Mélanger", es = "Mezclar", de = "Mischen" },

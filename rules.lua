@@ -24,7 +24,7 @@ Daily Challenge gives everyone the same letters for the day.
 ]])
 
 local SOLO_FR = [[
-Spelling Bee — Règles
+La Ruche — Règles
 
 Formez des mots avec les sept lettres de la ruche.
 
@@ -68,7 +68,7 @@ After the last round the reader shows the final scoreboard: the player with the 
 ]])
 
 local PARTY_FR = [[
-Spelling Bee · à plusieurs — Règles
+La Ruche · à plusieurs — Règles
 
 Une chasse aux mots sur papier pour 2 à 8 joueurs autour d'une liseuse posée au milieu de la table.
 

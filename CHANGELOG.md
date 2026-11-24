@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.11] - 2026-11-24
+
+### Changed
+- In French the game is called "La Ruche" (menu, title bar, Dashboard tile,
+  rules). The plugin id and English name stay "Spelling Bee".
+
 ## [1.2.10] - 2026-11-24
 
 ### Changed
