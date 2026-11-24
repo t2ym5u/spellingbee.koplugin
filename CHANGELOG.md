@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.12] - 2026-11-24
+
+### Fixed
+- Closing the multiplayer game now stops its countdown.
+- Picks up game-common 1.20.0: a deferred action (timer tick, computer's
+  move, card flip) no longer runs once the game is closed or a new game has
+  started, and the game is saved a few seconds after a move instead of after
+  every one, and at once on close, suspend or power-off.
+
 ## [1.2.11] - 2026-11-24
 
 ### Changed

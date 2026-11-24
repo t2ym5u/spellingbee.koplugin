@@ -84,6 +84,7 @@ end
 -- ScreenBase:closeScreen saves under the solo game's key: keep them apart.
 function PartyScreen:closeScreen()
     self:_stopClock()
+    self:cancelScheduled()
     self:_save()
     self.plugin:onScreenClosed()
     UIManager:close(self)
@@ -115,7 +116,7 @@ function PartyScreen:_startClock()
     self.clock = Timer:new()
     self.clock:load{ elapsed = m.time_limit - m.time_left, was_running = true }
     local gen = self._clock_gen
-    UIManager:scheduleIn(1, function() self:_onTick(gen) end)
+    self:schedule(1, function() self:_onTick(gen) end)
 end
 
 function PartyScreen:_stopClock()
@@ -132,7 +133,7 @@ function PartyScreen:_onTick(gen)
         return
     end
     if self.timer_widget then self.timer_widget:setText(clockText(m.time_left), self) end
-    UIManager:scheduleIn(1, function() self:_onTick(gen) end)
+    self:schedule(1, function() self:_onTick(gen) end)
 end
 
 -- ---------------------------------------------------------------------------
@@ -445,6 +446,7 @@ function PartyScreen:onNextRound()
 end
 
 function PartyScreen:onNewGame()
+    self:cancelScheduled()
     self:_stopClock()
     self.times_up = false
     self:_newMatch()
