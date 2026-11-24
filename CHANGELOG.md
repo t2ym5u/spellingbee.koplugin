@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2026-11-24
+
+### Changed
+- French accepts about 5,900 more bonus words (17,064 -> 22,895), taken from
+  the Grammalecte lexicon (Dicollecte, MPL 2.0): long words of 10 letters and
+  more (CHANTONNANT, AUTOPORTRAIT...) and forms the old list missed. They
+  are worth no points, as before: puzzles, their answers, scores and the
+  Daily Challenge are unchanged. Familiar, slang, pejorative and sexual words
+  are left out.
+
 ## [1.2.12] - 2026-11-24
 
 ### Fixed

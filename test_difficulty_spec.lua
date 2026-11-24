@@ -6,6 +6,12 @@
 -- least one core pangram and at most 120 rare bonus words. This checks the
 -- band on a sample of both banks, that the rank ladder climbs, and that a
 -- seed (or a day, for the daily puzzle) gives the same letters.
+--
+-- The 120 bonus words are counted on boggle.koplugin's list, which picked the
+-- puzzles. Since 2026-11-24 the French bonus words also take the Grammalecte
+-- lexicon's (tools/build_words.py), which the selection leaves out: a French
+-- puzzle now has up to 197 bonus words (median 88), hence BONUS_MAX.
+local BONUS_MAX = { en = 120, fr = 200 }
 package.path = "./?.lua;./common/?.lua;" .. package.path
 
 local Board = dofile("board.lua")
@@ -19,7 +25,7 @@ describe("Spelling Bee difficulty", function()
         -- moved from test_board_spec.lua ("data files"); the bonus-word cap
         -- is new. The whole bank was measured clean on 2026-11-09 (en 5636,
         -- fr 2214 puzzles: answers 20..55, score <= 240, bonus <= 120).
-        it(lang .. ": sampled puzzles have a pangram, 20..55 answers, score <= 240, <= 120 bonus words", function()
+        it(lang .. ": sampled puzzles have a pangram, 20..55 answers, score <= 240, <= " .. BONUS_MAX[lang] .. " bonus words", function()
             local puzzles = Board.loadLang(lang).puzzles
             assert.is_true(#puzzles > 1000)
             local b = Board:new{ lang = lang, empty = true }
@@ -40,7 +46,7 @@ describe("Spelling Bee difficulty", function()
                 assert.is_true(b.max_score <= 240, spec)
                 local bonus = 0
                 for _ in pairs(b.extra_set) do bonus = bonus + 1 end
-                assert.is_true(bonus <= 120, spec .. ": " .. bonus .. " bonus words")
+                assert.is_true(bonus <= BONUS_MAX[lang], spec .. ": " .. bonus .. " bonus words")
                 for _, w in ipairs(b.answers) do
                     assert.is_truthy(w:find(b.centre, 1, true), w)
                     for k = 1, #w do assert.is_true(letters[w:sub(k, k)], w) end
